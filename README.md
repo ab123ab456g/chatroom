@@ -1,6 +1,4 @@
-這裡是根據你已完成的聊天室系統，自動整理出來的一份專業又易讀的 `README.md`，適用於 GitHub 開源、履歷作品集、或課堂報告用：
 
----
 
 ## 📦 Chatroom System with Flask & Socket.IO
 
