@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登入</title>
+</head>
+<body>
+    <h2>登入帳號</h2>
+        {% if error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+    <form action="/login" method="post">
+        <label>使用者名稱：</label><input type="text" name="username"><br>
+        <label>密碼：</label><input type="password" name="password"><br>
+        <input type="submit" value="登入">
+    </form>
+    <a href="/register">還沒有帳號？註冊</a>
+</body>
+</html>
