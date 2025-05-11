@@ -2,18 +2,44 @@
 <html>
 <head>
     <title>登入</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bcrypt.js/2.4.3/bcrypt.min.js"></script>
 </head>
 <body>
     <h2>登入帳號</h2>
-        {% if error %}
-        <p style="color: red;">{{ error }}</p>
-        {% endif %}
 
-    <form action="/login" method="post">
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form id="login-form" method="post" action="/login">
         <label>使用者名稱：</label><input type="text" name="username"><br>
-        <label>密碼：</label><input type="password" name="password"><br>
+        <label>密碼：</label><input type="password" id="password" name="password"><br>
         <input type="submit" value="登入">
     </form>
+
     <a href="/register">還沒有帳號？註冊</a>
+
+    <script>
+        const form = document.getElementById('login-form');
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const passwordField = document.getElementById('password');
+            const rawPassword = passwordField.value;
+
+            if (rawPassword.length < 6) {
+                alert("密碼太短！");
+                return;
+            }
+
+            // 這裡不是 hash，而是保留原密碼進行前端驗證也可選擇略過
+            // 如果你想送出加密密碼（前端 hash）：
+            const salt = await bcrypt.genSalt(10);
+            const hashed = await bcrypt.hash(rawPassword, salt);
+            passwordField.value = hashed;
+
+            form.submit();  // ⚠️ 送出的是明文密碼，請確認後端處理一致
+        });
+    </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ def register_member(username, password):
     conn = get_db()
     cursor = conn.cursor()
     try:
-        hashed = hash_password(password)
+        #hashed = hash_password(password)
         cursor.execute("INSERT INTO member (username, password) VALUES (?, ?)", (username, hashed))
         conn.commit()
         return True, "註冊成功"
@@ -20,6 +20,11 @@ def verify_login(username, password):
     cursor.execute("SELECT id, password FROM member WHERE username = ?", (username,))
     row = cursor.fetchone()
     conn.close()
+
+    if row and password == row[1]:  # 直接比對 hash string
+        return True, row[0]
+    else:
+        return False, None
 
     if row and check_password(password, row[1]):
         return True, row[0]
