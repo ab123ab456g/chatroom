@@ -95,6 +95,7 @@ chatroom/
 * [ ] 附件、圖片訊息支援
 * [ ] WebSocket 壓力測試與效能調校
 * [ ] 容器化部署（Docker）
+* [ ] 前端hash，avoid double hashing
 
 ---
 
